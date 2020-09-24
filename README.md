@@ -26,10 +26,10 @@ In [7]: r1 = pe.eval5(handc1 + boardc) # Also see eval6, eval7, evalany
 In [8]: r2 = pe.eval5(handc2 + boardc)                                     
 
 In [9]: pe.rankinfo(r1)                                     
-Out[9]: {'handType': 5, 'handRank': 9, 'value': 20489, 'handName': 'straight'}
+Out[9]: {'type': 5, 'rank': 9, 'value': 20489, 'name': 'straight'}
 
 In [10]: pe.rankinfo(r2)                                      
-Out[10]: {'handType': 4, 'handRank': 713, 'value': 17097, 'handName': 'three of a kind'}
+Out[10]: {'type': 4, 'rank': 713, 'value': 17097, 'name': 'three of a kind'}
 
 In [11]: r1>r2                                      
 Out[11]: True
