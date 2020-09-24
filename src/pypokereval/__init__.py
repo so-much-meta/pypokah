@@ -4,7 +4,9 @@ from array import array
 # import time
 # import itertools
 import pkg_resources
+import re
 
+_card_regex = re.compile(r'[2-9tjqk][cdhs]', re.IGNORECASE)
 
 HANDTYPES = [
     "invalid hand",
@@ -77,6 +79,12 @@ CARDS = {
 INV_CARDS = {v: k for k, v in CARDS.items()}
 
 
+def getcards(hand):
+    if isinstance(hand, list):
+        return [c for h in hand for c in getcards(h)]
+    return [CARDS[str.lower(c)] for c in _card_regex.findall(hand)]
+
+
 def gethand(cards, compress=False):
     sep = ' ' if not compress else ''
     return sep.join([INV_CARDS[c].capitalize() for c in cards])
@@ -109,12 +117,12 @@ def evalany(cards):
     return p
 
 
-def getrank(p):
+def rankinfo(p):
     return {
-        "handType": p >> 12,
-        "handRank": p & 0x00000fff,
+        "type": p >> 12,
+        "rank": p & 0x00000fff,
         "value": p,
-        "handName": HANDTYPES[p >> 12]
+        "name": HANDTYPES[p >> 12]
     }
 
 _stream = pkg_resources.resource_stream(__name__, 'data/HandRanks.dat.gz')
