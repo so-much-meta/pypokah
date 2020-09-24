@@ -1,0 +1,2 @@
+# pypokereval
+Python poker evaluator
