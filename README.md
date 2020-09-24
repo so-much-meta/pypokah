@@ -31,6 +31,12 @@ Out[10]: {'handType': 4, 'handRank': 713, 'value': 17097, 'handName': 'three of 
 
 In [11]: r1>r2                                                                                                                                                            
 Out[11]: True
+
+In [26]: r1                                                                                                                                                               
+Out[26]: 20489
+
+In [26]: r2                                                                                                                                                            
+Out[26]: 17097
 ```
 
 ## INSTALL
