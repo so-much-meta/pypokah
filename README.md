@@ -4,6 +4,8 @@ Python poker evaluator
 ## Example
 
 ```python
+In [0]: import pypokereval as pe
+
 In [1]: handc1 = pe.getcards('th js')                                                                                                                                     
 
 In [2]: handc1                                      
