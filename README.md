@@ -49,7 +49,7 @@ Out[15]: '9hQcKs'
 
 ## INSTALL
 ```
-# Or just util extras (parse training games, run lczero engine, etc)
+# over http
 pip install git+https://github.com/gomolot/pypokereval.git
 
 # Or from source tree...
