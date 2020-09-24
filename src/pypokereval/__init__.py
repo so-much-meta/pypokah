@@ -3,6 +3,7 @@ from array import array
 # import random
 # import time
 # import itertools
+import pkg_resources
 
 
 HANDTYPES = [
@@ -84,15 +85,15 @@ def gethand(cards, compress=False):
 def eval7(cards):
     p = 53
     for c in cards:
-        p = ranks[p + c]
+        p = _ranks[p + c]
     return p
 
 
 def eval5(cards):
     p = 53
     for c in cards:
-        p = ranks[p + c]
-    p = ranks[p]
+        p = _ranks[p + c]
+    p = _ranks[p]
     return p
 
 
@@ -102,9 +103,9 @@ eval6 = eval5
 def evalany(cards):
     p = 53
     for c in cards:
-        p = ranks[p + c]
+        p = _ranks[p + c]
     if 5 <= len(cards) <= 6:
-        p = ranks[p]
+        p = _ranks[p]
     return p
 
 
@@ -116,7 +117,8 @@ def getrank(p):
         "handName": HANDTYPES[p >> 12]
     }
 
+_stream = pkg_resources.resource_stream(__name__, 'data/HandRanks.dat.gz')
 
-with gzip.open('./HandRanks.dat.gz') as f:
-    ranks = array('I')
-    ranks.fromfile(f, 32487834)
+with gzip.GzipFile(fileobj=_stream) as f:
+    _ranks = array('I')
+    _ranks.fromfile(f, 32487834)
