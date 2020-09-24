@@ -32,11 +32,17 @@ Out[10]: {'handType': 4, 'handRank': 713, 'value': 17097, 'handName': 'three of 
 In [11]: r1>r2                                                                                                                                                            
 Out[11]: True
 
-In [26]: r1                                                                                                                                                               
-Out[26]: 20489
+In [12]: r1                                                                                                                                                               
+Out[12]: 20489
 
-In [26]: r2                                                                                                                                                            
-Out[26]: 17097
+In [13]: r2                                                                                                                                                            
+Out[13]: 17097
+
+In [14]: pe.gethand(board) # For consistency, cards means list of cards, hand means human-readable string                                                                                                                                 
+Out[14]: '9h Qc Ks'
+
+In [15]: pe.gethand(board, compress=True)                                                                                                             
+Out[15]: '9hQcKs'
 ```
 
 ## INSTALL
