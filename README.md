@@ -1,7 +1,7 @@
 # pypokereval
 Python poker evaluator
-Uses twoplustwo hand LUT eval method: 
-Uses https://github.com/WhatMatters/ray_eval for PLO
+- Uses twoplustwo hand LUT eval method: 
+- Uses https://github.com/WhatMatters/ray_eval for PLO
 
 ## Example
 
