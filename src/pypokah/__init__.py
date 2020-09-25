@@ -6,7 +6,7 @@ from array import array
 import pkg_resources
 import re
 
-_card_regex = re.compile(r'[2-9tjqk][cdhs]', re.IGNORECASE)
+_card_regex = re.compile(r'[2-9tjqka][cdhs]', re.IGNORECASE)
 
 HANDTYPES = [
     "invalid hand",
