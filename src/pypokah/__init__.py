@@ -1,4 +1,4 @@
-import gzip
+import lzma
 from array import array
 # import random
 # import time
@@ -93,15 +93,15 @@ def gethand(cards, compress=False):
 def eval7(cards):
     p = 53
     for c in cards:
-        p = _ranks[p + c]
+        p = _ranks_7[p + c]
     return p
 
 
 def eval5(cards):
     p = 53
     for c in cards:
-        p = _ranks[p + c]
-    p = _ranks[p]
+        p = _ranks_7[p + c]
+    p = _ranks_7[p]
     return p
 
 
@@ -111,11 +111,39 @@ eval6 = eval5
 def evalany(cards):
     p = 53
     for c in cards:
-        p = _ranks[p + c]
+        p = _ranks_7[p + c]
     if 5 <= len(cards) <= 6:
-        p = _ranks[p]
+        p = _ranks_7[p]
     return p
 
+def evalplo(board_cards, pocket_cards):
+    fs = 106
+    snf = _ranks_9[0] + 53
+    fo = _ranks_9[1] + 56
+    if len(board_cards) < 5:
+        fs = _ranks_9[fs]
+        snf = _ranks_9[snf]
+        fo = _ranks_9[fo]
+        if len(board_cards) < 4:
+            fs = _ranks_9[fs]
+            snf = _ranks_9[snf]
+            fo = _ranks_9[fo]
+    for c in board_cards:
+        fs = _ranks_9[fs + c]
+        snf = _ranks_9[snf + c]
+    for c in pocket_cards:
+        fs = _ranks_9[fs + c]
+        snf = _ranks_9[snf + c]
+    value = snf
+    if fs != 0:
+        hr9_f_idx = 4 - fs
+        flush_score = fo
+        for c in board_cards:
+            flush_score = _ranks_9[flush_score + hr9_f_idx + c]
+        for c in pocket_cards:
+            flush_score = _ranks_9[flush_score + hr9_f_idx + c]
+        value = flush_score if flush_score > value else value
+    return value
 
 def rankinfo(p):
     return {
@@ -125,8 +153,14 @@ def rankinfo(p):
         "name": HANDTYPES[p >> 12]
     }
 
-_stream = pkg_resources.resource_stream(__name__, 'data/HandRanks.dat.gz')
+_stream = pkg_resources.resource_stream(__name__, 'data/rayeval_hand_ranks_7.dat.lzma')
+with lzma.LZMAFile(_stream) as f:
+    _ranks_7 = array('I')
+    f.read(4) # Get rid of size header
+    _ranks_7.fromfile(f, 32487834)
 
-with gzip.GzipFile(fileobj=_stream) as f:
-    _ranks = array('I')
-    _ranks.fromfile(f, 32487834)
+_stream = pkg_resources.resource_stream(__name__, 'data/rayeval_hand_ranks_9.dat.lzma')
+with lzma.LZMAFile(_stream) as f:
+    _ranks_9 = array('I')
+    f.read(4) # Get rid of size header
+    _ranks_9.fromfile(f, 285746508)
